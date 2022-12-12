@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('reductions', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->float('amount')->nullable(false);
+            $table->string('name')->unique()->nullable(false);
+            $table->unsignedFloat('amount')->nullable(false);
             $table->boolean('is_percentage')->nullable(false);
             $table->timestamps();
         });

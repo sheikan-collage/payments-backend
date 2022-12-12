@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Reductions;
+namespace App\Http\Requests\Students;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreReductionRequest extends FormRequest
+class RemoveStudentRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +13,7 @@ class StoreReductionRequest extends FormRequest
      */
     public function authorize()
     {
-        return auth('supervisors')->user()->can('reductions::add');
+        return auth('supervisors')->user()->can('students::remove');
     }
 
     /**
@@ -23,10 +23,6 @@ class StoreReductionRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            'name' => "required|unique:reductions,name",
-            'amount' => 'required|numeric|min:1.0',
-            'is_percentage' => 'required|boolean',
-        ];
+        return [];
     }
 }

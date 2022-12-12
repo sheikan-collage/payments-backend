@@ -21,6 +21,7 @@ require __DIR__ . DIRECTORY_SEPARATOR . 'roles' . DIRECTORY_SEPARATOR . 'api.php
 require __DIR__ . DIRECTORY_SEPARATOR . 'fees' . DIRECTORY_SEPARATOR . 'api.php';
 require __DIR__ . DIRECTORY_SEPARATOR . 'installments' . DIRECTORY_SEPARATOR . 'api.php';
 require __DIR__ . DIRECTORY_SEPARATOR . 'reductions' . DIRECTORY_SEPARATOR . 'api.php';
+require __DIR__ . DIRECTORY_SEPARATOR . 'students' . DIRECTORY_SEPARATOR . 'api.php';
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
