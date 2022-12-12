@@ -31,6 +31,88 @@ class PermissionSeeder extends Seeder
     }
 
     /**
+     * @method getFeesPermissions gets all permissions corresponded to fees
+     * @return array of all fees permissions
+     */
+    public static function getFeesPermissions(): array
+    {
+        $permissions = [
+            'fees::add',
+            'fees::remove',
+            'fees::retrieve',
+            'fees::update',
+        ];
+
+        return $permissions;
+    }
+
+    /**
+     * @method getInstallmentsPermissions gets all permissions corresponded to installments
+     * @return array of all fees installments
+     */
+    public static function getInstallmentsPermissions(): array
+    {
+        $permissions = [
+            'installments::add',
+            'installments::remove',
+            'installments::retrieve',
+            'installments::update',
+        ];
+
+        return $permissions;
+    }
+
+    /**
+     * @method getReductionsPermissions gets all permissions corresponded to reductions
+     * @return array of all fees reductions
+     */
+    public static function getReductionsPermissions(): array
+    {
+        $permissions = [
+            'reductions::add',
+            'reductions::remove',
+            'reductions::retrieve',
+            'reductions::update',
+        ];
+
+        return $permissions;
+    }
+
+    /**
+     * @method getStudentsPermissions gets all permissions corresponded to students
+     * @return array of all fees students
+     */
+    public static function getStudentsPermissions(): array
+    {
+        $permissions = [
+            'students::add',
+            'students::remove',
+            'students::retrieve',
+            'students::update',
+        ];
+
+        return $permissions;
+    }
+
+    /**
+     * @method getPaymentsPermissions gets all permissions corresponded to payments
+     * @return array of all fees payments
+     */
+    public static function getPaymentsPermissions(): array
+    {
+        $permissions = [
+            'payments::add',
+            'payments::remove',
+            'payments::retrieve',
+            'payments::update',
+        ];
+
+        return $permissions;
+    }
+
+
+
+    /**
      * @method getRolesPermissions gets all permissions corresponded to roles
      * @return array of all roles permissions
      */
@@ -48,7 +130,7 @@ class PermissionSeeder extends Seeder
         return $permissions;
     }
 
-   
+
     /**
      * @method getSystemPermissions gets all valid permissions
      * @return array of all valid permissions
@@ -58,18 +140,23 @@ class PermissionSeeder extends Seeder
         $global = [
             'permissions::retrieve',
         ];
-        $permissions = [
+        $permissionsSets = [
             $global,
             static::getSupervisorsPermissions(),
             static::getRolesPermissions(),
+            static::getFeesPermissions(),
+            static::getInstallmentsPermissions(),
+            static::getReductionsPermissions(),
+            static::getStudentsPermissions(),
+            static::getPaymentsPermissions(),
         ];
 
-        $systemPermission = [];
-        foreach ($permissions as $permission) {
-            $systemPermission = array_merge($systemPermission, $permission);
+        $systemPermissions = [];
+        foreach ($permissionsSets as $permissions) {
+            $systemPermissions = array_merge($systemPermissions, $permissions);
         }
 
-        return $systemPermission;
+        return $systemPermissions;
     }
     /**
      * Run the database seeds.
