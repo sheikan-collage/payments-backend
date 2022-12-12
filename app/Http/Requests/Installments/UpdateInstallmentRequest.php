@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Requests\Fees;
+namespace App\Http\Requests\Installments;
 
 use App\Models\Fee;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Route;
 
-class UpdateFeeRequest extends FormRequest
+class UpdateInstallmentRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -15,7 +15,7 @@ class UpdateFeeRequest extends FormRequest
      */
     public function authorize()
     {
-        return auth('supervisors')->user()->can('fees::update');
+        return auth('supervisors')->user()->can('installments::update');
     }
 
     /**
@@ -25,7 +25,7 @@ class UpdateFeeRequest extends FormRequest
      */
     public function rules()
     {
-        $nameRules = 'unique:fees,name';
+        $nameRules = 'unique:installments,name';
         $fee = Fee::find(Route::getCurrentRoute()->parameter('id'));
 
         if ($fee and request()->has('name')) {
@@ -35,8 +35,13 @@ class UpdateFeeRequest extends FormRequest
         }
         return [
             'name' => $nameRules,
-            'amount' => 'numeric|min:1.0',
-            'currency' => 'in:SDG,USD',
+            'divisions' => ['array', 'min:2', function ($attribute, $value, $fail) {
+                
+                if (!is_array($value) || array_sum($value) !== 100) {
+                    return $fail('The ' . $attribute . ' summation must equal 100.');
+                }
+            },],
+            'divisions.*' => 'integer|min:1'
         ];
     }
 }
