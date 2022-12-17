@@ -28,20 +28,46 @@ class StudentsController extends Controller
             'reductions_id',
         );
         $student = Student::create($studentData);
+
+        $this->logSuccess('Create Student', $student->toArray());
         return $this->sendData($student);
     }
 
     public function index(RetrieveStudentsRequest $request)
     {
-        return $this->sendData(Student::all());
+        //   "university_id",
+        //   "name",
+        //   "department",
+        //   "batch",
+        //   "level",
+        //   "fees_name",
+        //   "fees_amount",
+        //   "fees_currency",
+        //   "installments_name",
+        //   "installments_details",
+        //   "reductions_name",
+        //   "reductions_amount",
+        //   "total_payed_amount",
+        //   "remaining_payments_amount",
+        //   "payments_count",
+        //   "last_payment",
+        //   "payed_progress",
+        //   "is_active",
+        //   "created_at",
+        //   "updated_at"
+        $this->logSuccess('Retrieve Students');
+        return $this->sendData(Student::with(['fees', 'installments', 'reductions'])->get());
     }
 
     public function show(RetrieveStudentsRequest $request, int $id)
     {
         $student = Student::find($id);
         if (!$student) {
+            $this->logNotFound('Retrieve Students', $id);
             return $this->sendError(['student not sound'], Response::HTTP_NOT_FOUND);
         }
+
+        $this->logSuccess('Retrieve Student', $student->toArray());
         return $this->sendData($student);
     }
 
@@ -49,10 +75,12 @@ class StudentsController extends Controller
     {
         $student = Student::find($id);
         if (!$student) {
+            $this->logNotFound('Update Student', $id);
             return $this->sendError(['student not sound'], Response::HTTP_NOT_FOUND);
         }
-
         $student->update($request->all());
+
+        $this->logSuccess('Update Student', $student->toArray());
         return $this->sendData($student);
     }
 
@@ -60,11 +88,12 @@ class StudentsController extends Controller
     {
         $student = Student::find($id);
         if (!$student) {
+            $this->logNotFound('Remove Student', $id);
             return $this->sendError(['student not sound'], Response::HTTP_NOT_FOUND);
         }
-
         $student->delete();
+
+        $this->logSuccess('Remove Student', $student->toArray());
         return $this->sendData($student);
     }
-
 }

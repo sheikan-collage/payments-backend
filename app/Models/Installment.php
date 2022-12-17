@@ -14,4 +14,9 @@ class Installment extends Model
         'divisions' =>  'array'
     ];
 
+    public function students()
+    {
+        return $this->hasMany(Student::class, 'installments_id');
+    }
+
 }

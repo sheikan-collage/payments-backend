@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Installments;
 
 use App\Models\Fee;
+use App\Models\Installment;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Route;
 
@@ -26,10 +27,10 @@ class UpdateInstallmentRequest extends FormRequest
     public function rules()
     {
         $nameRules = 'unique:installments,name';
-        $fee = Fee::find(Route::getCurrentRoute()->parameter('id'));
+        $installments = Installment::find(Route::getCurrentRoute()->parameter('id'));
 
-        if ($fee and request()->has('name')) {
-            if ($fee->name == request()->input('name')) {
+        if ($installments and request()->has('name')) {
+            if ($installments->name == request()->input('name')) {
                 $nameRules = '';
             }
         }

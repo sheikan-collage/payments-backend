@@ -8,7 +8,7 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller as BaseController;
 
-if(app()->environment(['local'])){
+if (app()->environment(['local'])) {
     usleep(900 * 1000);
 }
 
@@ -53,5 +53,40 @@ class Controller extends BaseController
         ];
 
         return response($envelope, $HTTPCode, $headers);
+    }
+
+    public function logActivity(string $event, string $message, array $properties = null, $supervisor = null)
+    {
+        if (!$supervisor) {
+            $supervisor = request()->user();
+        }
+        $activityName = $supervisor->name . ' [@' . $supervisor->user_name . ']';
+        $activity = activity($activityName)->causedBy($supervisor);
+
+        if ($properties) {
+            $activity->withProperties($properties);
+        }
+
+        $activity->event($event);
+        $activity->log($message);
+    }
+
+    public function logSuccess(string $event, array $properties = null, string $message = '', $supervisor = null)
+    {
+        return $this->logActivity($event, '[SUCCESS] ' . $message, $properties, $supervisor);
+    }
+
+    public function logFail(string $event, array $properties = null, string $message = '', $supervisor = null)
+    {
+        return $this->logActivity($event, '[Failed] ' . $message, $properties, $supervisor);
+    }
+
+    public function logNotFound(string $event, $id, array $properties = null, string $message = '', $supervisor = null)
+    {
+        if(!$properties) {
+            $properties = [];
+        }
+        $properties['id'] = $id;
+        return $this->logFail($event, $properties, $message, $supervisor);
     }
 }

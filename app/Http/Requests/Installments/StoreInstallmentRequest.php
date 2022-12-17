@@ -31,7 +31,7 @@ class StoreInstallmentRequest extends FormRequest
                     $fail('The ' . $attribute . ' summation must equal 100.');
                 }
             },],
-            'divisions.*' => 'required|integer|min:1'
+            'divisions.*' => 'required|integer|min:1|max:99'
         ];
     }
 }

@@ -23,4 +23,19 @@ class Student extends Model
     protected $casts = [
         'is_active' =>  'boolean'
     ];
+
+    public function fees()
+    {
+        return $this->belongsTo(Fee::class, 'fees_id');
+    }
+
+    public function installments()
+    {
+        return $this->belongsTo(Installment::class, 'installments_id');
+    }
+
+    public function reductions()
+    {
+        return $this->belongsTo(Reduction::class, 'reductions_id');
+    }
 }

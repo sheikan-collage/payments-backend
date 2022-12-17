@@ -13,4 +13,9 @@ class Reduction extends Model
     protected $casts = [
         'is_percentage' =>  'boolean'
     ];
+
+    public function students()
+    {
+        return $this->hasMany(Student::class, 'reductions_id');
+    }
 }
