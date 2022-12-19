@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('name')->unique()->nullable(false);
             $table->unsignedFloat('amount')->nullable(false);
             $table->boolean('is_percentage')->nullable(false);
+            $table->text('description')->nullable(true);
             $table->timestamps();
         });
     }

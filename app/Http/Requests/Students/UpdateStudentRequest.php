@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Students;
 
 use App\Models\Fee;
+use App\Models\Student;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Route;
 
@@ -25,13 +26,21 @@ class UpdateStudentRequest extends FormRequest
      */
     public function rules()
     {
+        $universityIdUniquenessRule = '|unique:students,university_id';
+        $student = Student::find(Route::getCurrentRoute()->parameter('id'));
+
+        if ($student and request()->has('university_id')) {
+            if ($student->university_id == request()->input('university_id')) {
+                $universityIdUniquenessRule = '';
+            }
+        }
         return [
             'name' => [function ($attribute, $value, $fail) {
                 if (str_word_count($value) < 4) {
                     $fail('The ' . $attribute . ' must be at least 4 words.');
                 }
             },],
-            'university_id' => 'numeric',
+            'university_id' => 'numeric' . $universityIdUniquenessRule,
             'level' => '',
             'department' => '',
             'batch' => '',

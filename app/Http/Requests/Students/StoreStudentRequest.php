@@ -48,13 +48,13 @@ class StoreStudentRequest extends FormRequest
         return [
             'name' => ["required", function ($attribute, $value, $fail) {
                 if (mb_str_word_count($value) < 4) {
-                    $fail('The ' . $attribute . ' must be at least 4 words. ' . mb_str_word_count($value));
+                    $fail('The ' . $attribute . ' must be at least 4 words. ');
                 }
             },],
-            'university_id' => 'required|numeric',
-            'level' => 'required',
-            'department' => 'required',
-            'batch' => 'required',
+            'university_id' => 'required|numeric|unique:students,university_id',
+            'level' => '',
+            'department' => '',
+            'batch' => '',
             'fees_id' => 'required|exists:fees,id',
             'installments_id' => 'required|exists:installments,id',
             'reductions_id' => 'required|exists:reductions,id',
