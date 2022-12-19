@@ -139,6 +139,7 @@ class PermissionSeeder extends Seeder
     {
         $global = [
             'permissions::retrieve',
+            'activity_logs::retrieve'
         ];
         $permissionsSets = [
             $global,
