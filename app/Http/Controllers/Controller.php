@@ -9,7 +9,7 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Controller as BaseController;
 
 if (app()->environment(['local'])) {
-    usleep(900 * 1000);
+    // usleep(900 * 1000);
 }
 
 class Controller extends BaseController
@@ -23,7 +23,7 @@ class Controller extends BaseController
      * @param int $httpCode http response code
      * @param array $HTTPCode array of http header to be in the response
      */
-    public function sendData($data, array $messages = [], int $HTTPCode = Response::HTTP_OK, array $headers = [])
+    public static function sendData($data, array $messages = [], int $HTTPCode = Response::HTTP_OK, array $headers = [])
     {
         $envelope = [
             'hasError' => false,
@@ -45,7 +45,7 @@ class Controller extends BaseController
      * @param array $HTTPCode array of http header to be in the response
      */
 
-    public function sendError($messages, $HTTPCode = 500, $headers = [])
+    public static function sendError($messages, $HTTPCode = 500, $headers = [])
     {
         $envelope = [
             'hasError' => true,
@@ -55,7 +55,7 @@ class Controller extends BaseController
         return response($envelope, $HTTPCode, $headers);
     }
 
-    public function logActivity(string $event, string $message, array $properties = null, $supervisor = null)
+    public static function logActivity(string $event, string $message, array $properties = null, $supervisor = null)
     {
         if (!$supervisor) {
             $supervisor = request()->user();
@@ -71,7 +71,7 @@ class Controller extends BaseController
         $activity->log($message);
     }
 
-    public function logSuccess(string $event, array $properties = null, string $message = '', $supervisor = null)
+    public  function logSuccess(string $event, array $properties = null, string $message = '', $supervisor = null)
     {
         return $this->logActivity($event, '[SUCCESS] ' . $message, $properties, $supervisor);
     }

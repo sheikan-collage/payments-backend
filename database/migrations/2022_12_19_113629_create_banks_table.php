@@ -13,12 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('reductions', function (Blueprint $table) {
+        Schema::create('banks', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->unique()->nullable(false);
-            $table->unsignedDouble('amount')->nullable(false);
-            $table->boolean('is_percentage')->nullable(false);
-            $table->text('description')->nullable(true);
             $table->timestamps();
         });
     }
@@ -30,6 +26,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('reductions');
+        Schema::dropIfExists('banks');
     }
 };

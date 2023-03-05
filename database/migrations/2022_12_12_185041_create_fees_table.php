@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('fees', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->unsignedFloat('amount')->nullable(false);
+            $table->unsignedDouble('amount')->nullable(false);
             $table->enum('currency', ['USD', 'SDG'])->nullable(false);
             $table->text('description')->nullable(true)->default(null);
             $table->timestamps();

@@ -24,11 +24,11 @@ return new class extends Migration
             $table->unsignedBigInteger('fees_id');
             $table->unsignedBigInteger('installments_id');
             $table->unsignedBigInteger('reductions_id');
+            $table->timestamps();
             
             $table->index('fees_id');
             $table->index('installments_id');
             $table->index('reductions_id');
-            $table->timestamps();
 
             $table->foreign('fees_id')->references('id')->on('fees')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('installments_id')->references('id')->on('installments')->onDelete('cascade')->onUpdate('cascade');

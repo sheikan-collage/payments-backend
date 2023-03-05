@@ -38,4 +38,9 @@ class Student extends Model
     {
         return $this->belongsTo(Reduction::class, 'reductions_id');
     }
+
+    public function payments()
+    {
+        return $this->hasMany(Payment::class);
+    }
 }

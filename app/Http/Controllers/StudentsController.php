@@ -71,6 +71,17 @@ class StudentsController extends Controller
         return $this->sendData($student);
     }
 
+    public function getPaymentsHistory(RetrieveStudentsRequest $request, int $id)
+    {
+        $student = Student::find($id);
+        if (!$student) {
+            $this->logNotFound('Retrieve Students', $id);
+            return $this->sendError(['student not sound'], Response::HTTP_NOT_FOUND);
+        }
+
+        $this->logSuccess('Retrieve Student Payments', $student->toArray());
+        return $this->sendData($student->payments);
+    }
     public function update(UpdateStudentRequest $request, int $id)
     {
         $student = Student::find($id);

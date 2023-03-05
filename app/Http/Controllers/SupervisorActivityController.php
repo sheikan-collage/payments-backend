@@ -9,7 +9,7 @@ class SupervisorActivityController extends Controller
 {
     public function index(IndexActivitiesRequest $request)
     {
-        $this->logSuccess('Retrieve Activities');
-        return Activity::all();
+        // $this->logSuccess('Retrieve Activities');
+        return $this->sendData(Activity::with('causer')->get());
     }
 }

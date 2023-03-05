@@ -70,7 +70,7 @@ return [
     */
 
     //Gulf Standard Time (GST) is 4 hours ahead of Coordinated Universal Time (UTC). This time zone is in use during standard time in: Asia.
-    'timezone' => 'asia/dubai', 
+    'timezone' => 'Africa/Khartoum',
 
     /*
     |--------------------------------------------------------------------------

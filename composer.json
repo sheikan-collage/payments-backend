@@ -15,6 +15,7 @@
         "pusher/pusher-php-server": "^7.0",
         "spatie/laravel-activitylog": "^4.7",
         "spatie/laravel-permission": "^5.5",
+        "spatie/opening-hours": "^2.13",
         "tucker-eric/eloquentfilter": "^3.1"
     },
     "require-dev": {

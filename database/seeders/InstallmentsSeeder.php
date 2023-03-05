@@ -15,7 +15,6 @@ class InstallmentsSeeder extends Seeder
 			'name' => 'None',
 			'divisions' => [100],
 			'description' => 'the default installment',
-
 			'created_at' => now(),
 		];
 

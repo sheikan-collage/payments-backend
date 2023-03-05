@@ -8,12 +8,14 @@ Route::prefix('students')->middleware('auth:sanctum', 'auth:supervisors')->group
     #create new student
     Route::post('/', [StudentsController::class, 'store'])->name('students.store');
 
-
     #get all students
     Route::get('/', [StudentsController::class, 'index'])->name('students.index');
 
     #get one student
     Route::get('/{id}', [StudentsController::class, 'show'])->name('students.show');
+
+    #get one student
+    Route::get('/{id}/payments', [StudentsController::class, 'getPaymentsHistory'])->name('students.index_payments');
 
     #update student
     Route::put('/{id}', [StudentsController::class, 'update'])->name('students.update');
