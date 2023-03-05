@@ -47,6 +47,7 @@ class AuthBank
 
         // 1. check if connection is secure in production mode
         if (!app()->environment(['local']) and $request->secure()) {
+            dd($request->secure(), app()->environment(['local']));
             return Controller::sendError('Terminated: must use HTTPS', Response::HTTP_UNPROCESSABLE_ENTITY);
         }
 
